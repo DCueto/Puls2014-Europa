@@ -6,10 +6,11 @@ var $form = $('#formulario'),
 
 function mostrarOcultarFormulario(){
 	$form.slideToggle();
-	return false;
+	$lista.slideToggle();
 }
 
-function agregarPost(){
+function agregarPost(e){
+	e.preventDefault();
 	var titulo = $titulo.val(),
 		url = $url.val(),
 		clone = $primerPost.clone();
@@ -20,9 +21,12 @@ function agregarPost(){
 		clone.hide()
 
 		$lista.prepend(clone)
+		mostrarOcultarFormulario();
 
-		clone.slideDown()
+		clone.fadeIn()
+		$titulo.val("");
+		$url.val("");
 }
 
-$('#publicar_nav a').click(mostrarOcultarFormulario)
-$('#formulario').on('submit', agregarPost)
+$('#publicar_nav a').click(mostrarOcultarFormulario);
+$('#formulario').on('submit', agregarPost);
