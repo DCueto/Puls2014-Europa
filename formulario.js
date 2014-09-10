@@ -2,11 +2,26 @@ var $form = $('#formulario'),
 	$titulo = $('#titulo'),
 	$url = $('#link');
 	$primerPost = $('.item').first();
-	$lista = $('#contenido');
+	$lista = $('#contenido'),
+	$video = $("#video-aside"),
+	ss = sessionStorage,
+	ls = localStorage;
+
+if (ls.getItem("autosave")){
+	$titulo.val(ss.getItem("titulo"));
+	$url.val(ss.getItem("url"));
+
+}
+
+var id = setInterval(function(){
+	ss.setItem("titulo", $titulo.val());
+	ss.setItem("url", $url.val());
+}, 1000);
 
 function mostrarOcultarFormulario(){
 	$form.slideToggle();
 	$lista.slideToggle();
+	$video.slideToggle();
 }
 
 function agregarPost(e){
@@ -26,6 +41,7 @@ function agregarPost(e){
 		clone.fadeIn()
 		$titulo.val("");
 		$url.val("");
+
 }
 
 function grabarInformacion(e){
@@ -49,7 +65,7 @@ function grabarInformacion(e){
 }
 
 $('#publicar_nav a').click(mostrarOcultarFormulario);
-$('#formulario').on('submit', grabarInformacion/*agregarPost*/);
+$('#formulario').on('submit', agregarPost);
 
 
 
